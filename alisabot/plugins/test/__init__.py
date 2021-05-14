@@ -10,13 +10,6 @@ from .config import Config
 global_config = get_driver().config
 config = Config(**global_config.dict())
 
-# Export something for other plugin
-# export = nonebot.export()
-# export.foo = "bar"
-
-# @export.xxx
-# def some_function():
-#     pass
 test1 = on_command("testAlisa", permission=SUPERUSER)
 
 

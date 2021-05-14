@@ -15,8 +15,8 @@ from nonebot.adapters.cqhttp import Bot
 #            format=default_format)
 
 # You can pass some keyword args config to init function
-# nonebot.init()
-nonebot.init(_env_file=".env.dev")
+nonebot.init()
+# nonebot.init(_env_file=".env.dev")
 app = nonebot.get_asgi()
 
 driver = nonebot.get_driver()

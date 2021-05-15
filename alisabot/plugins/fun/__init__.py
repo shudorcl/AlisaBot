@@ -9,8 +9,8 @@ from nonebot.adapters import Bot
 from nonebot.adapters.cqhttp import Message, MessageEvent
 
 from alisabot.utils.request import post_bytes
+from alisabot.utils.translate import to_simple_string
 from .config import Config
-from ...utils.translate import to_simple_string
 
 global_config = get_driver().config
 config = Config(**global_config.dict())
@@ -23,13 +23,10 @@ eat_wat = on_regex(r"[今|明|后|大后]天(.*?)吃什么")
 @eat_wat.handle()
 async def _eat(bot: Bot, event: MessageEvent) -> None:
     msg = str(event.message).strip()
-    # msg = re.search(r"大?[今|明|后]天(.*?)吃什么", msg).group()
     user = event.user_id
-    user_n = event.sender["nickname"]
-    # await bot.send(event, msg)
+    user_n = event.sender.nickname
     arg = re.findall(r"大?[今|明|后]天(.*?)吃什么", msg)[0]
     nd = re.findall(r"大?[今|明|后]天", msg)[0]
-    # await bot.send(event, f"arg={arg}\nnd={nd}")
 
     if arg == "中午":
         a = f"LdS4K6/{randint(0, 999999)}"
@@ -67,7 +64,6 @@ async def _eat(bot: Bot, event: MessageEvent) -> None:
     await eat_wat.finish(Message(result))
 
 
-plugin_name_0 = "me_to_you"
 me_to_you = on_message()
 
 
@@ -79,11 +75,11 @@ async def _me_to_you(bot: Bot, event: MessageEvent) -> None:
             await me_to_you.finish(msg.replace("我", "你"))
 
 
-tgirl = on_command("girltest")
+girl_test = on_command("girltest")
 
 
-@tgirl.handle()
-async def tghandle(bot: Bot, event: MessageEvent):
+@girl_test.handle()
+async def girltesthandle(bot: Bot, event: MessageEvent):
     keyword = str(event.message).strip()
     user = event.user_id
     name = event.sender.nickname
@@ -95,4 +91,4 @@ async def tghandle(bot: Bot, event: MessageEvent):
     data = json.loads(await post_bytes(url, params))
     text = to_simple_string(data['text'])
     result = f"> [CQ:at,qq={user}]\n" + text
-    await tgirl.finish(Message(result))
+    await girl_test.finish(Message(result))

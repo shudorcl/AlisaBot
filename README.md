@@ -1,6 +1,10 @@
 ![AlisaBot](https://socialify.git.ci/shudorcl/AlisaBot/image?description=1&descriptionEditable=Nonebot2%20QQbot&language=1&owner=1&stargazers=1&theme=Light)
-![](https://img.shields.io/github/stars/shudorcl/AlisaBot?style=for-the-badge)
-![](https://img.shields.io/github/license/shudorcl/AlisaBot?style=for-the-badge)
+<p align="center">
+  <a>
+    <img src="https://img.shields.io/github/stars/shudorcl/AlisaBot?style=for-the-badge">
+<img src="https://img.shields.io/github/license/shudorcl/AlisaBot?style=for-the-badge">
+  </a>
+</p>
 
 大家好啊，我是莫思潋。
 

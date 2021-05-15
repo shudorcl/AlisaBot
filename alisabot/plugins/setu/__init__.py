@@ -60,10 +60,26 @@ async def setu_handle(bot: Bot, event: GroupMessageEvent):
                 }
             }
             ]
-            await bot.send_group_forward_msg(group_id=group, messages=node)
+            try:
+                await bot.send_group_forward_msg(group_id=group, messages=node)
+            except ActionFailed:
+                await bot.send(event, "果然迫害人是不好的，那就正常发吧，虽然可能还会有问题就是了~")
+                pid = data["pid"]
+                title = data["title"]
+                img = MessageSegment.image(data["url"], proxy=False)
+                msg += Message(f"Pid: {pid}\n" f"Title: {title}\n" f"{img}")
+                await setu.finish(Message(msg))
         elif setu_type == 3:
             msg = f"[CQ:cardimage,file={data['url']}]"
-            await setu.finish(Message(msg))
+            try:
+                await setu.finish(Message(msg))
+            except ActionFailed:
+                await bot.send(event, "惹，不给我发这种，那就正常发吧，虽然可能还会有问题就是了~")
+                pid = data["pid"]
+                title = data["title"]
+                img = MessageSegment.image(data["url"], proxy=False)
+                msg += Message(f"Pid: {pid}\n" f"Title: {title}\n" f"{img}")
+                await setu.finish(Message(msg))
     except ActionFailed:
         await setu.finish(f"消息传输失败，通道似乎受到了管制")
 

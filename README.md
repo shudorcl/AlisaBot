@@ -1,4 +1,6 @@
-# AlisaBot
+![AlisaBot](https://socialify.git.ci/shudorcl/AlisaBot/image?description=1&descriptionEditable=Nonebot2%20QQbot&language=1&owner=1&stargazers=1&theme=Light)
+![](https://img.shields.io/github/stars/shudorcl/AlisaBot?style=for-the-badge)
+![](https://img.shields.io/github/license/shudorcl/AlisaBot?style=for-the-badge)
 
 大家好啊，我是莫思潋。
 
@@ -22,17 +24,25 @@
 今天吃什么！←偷的
 
 发涩图！←大部分也是偷的
-
 # 将来会做什么？
 
 把我缝过的东西缝回来！
 
 - [x] 发涩图
+- [ ] 插件控制
 - [ ] 冷却时间
 - [ ] ban人
 - [ ] 趣味功能
 - [ ] 搜电子书
 
+# 关于协议
+
+因为[ATRI](https://github.com/Kyomotoi/ATRI) 使用的是GPL-3.0，所以我也用了，就酱~
+
 # 感谢
 
-[Kyomotoi](https://github.com/Kyomotoi) : [ATRI](https://github.com/Kyomotoi/ATRI) 成功让我走上了缝合之路！
+[Kyomotoi](https://github.com/Kyomotoi): [ATRI](https://github.com/Kyomotoi/ATRI) 成功让我走上了缝合之路！
+
+[Mrs4s](https://github.com/Mrs4s): [go-cqhttp](https://github.com/Mrs4s/go-cqhttp)
+
+[NoneBot](https://github.com/nonebot): [NoneBot2](https://github.com/nonebot/nonebot2)

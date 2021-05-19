@@ -23,7 +23,7 @@ config = Config(**global_config.dict())
 
 TestUrl = "https://wtf.hiigara.net/api/run/{}"
 
-eat_wat = on_regex(r"[今|明|后|大后]天(.*?)吃什么")
+eat_wat = on_regex(r"[今|明|后|大后]天(.*?)吃什么", priority=5)
 
 
 @eat_wat.handle()
@@ -70,7 +70,7 @@ async def _eat(bot: Bot, event: MessageEvent) -> None:
     await eat_wat.finish(Message(result))
 
 
-girl_test = on_command("girltest")
+girl_test = on_command("girltest", priority=5)
 
 
 @girl_test.handle()
@@ -89,7 +89,7 @@ async def girltesthandle(bot: Bot, event: MessageEvent):
     await girl_test.finish(Message(result))
 
 
-rua = on_command("rua")
+rua = on_command("rua", priority=5)
 
 data_dir = Path('.') / 'alisabot' / 'plugins' / 'fun' / 'data'
 data_dir = os.path.abspath(data_dir)

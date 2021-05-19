@@ -1,6 +1,6 @@
 # import nonebot
 import json
-from random import choice
+from random import choice, randint
 
 from nonebot import get_driver, on_command
 from nonebot.adapters.cqhttp import MessageEvent, Bot, ActionFailed, MessageSegment, Message, GroupMessageEvent, Event
@@ -15,7 +15,8 @@ config = Config(**global_config.dict())
 
 lolicon_url = "https://api.lolicon.app/setu/"
 lolicon_key = global_config.lolicon_key
-setu = on_command("来点涩图", aliases={"涩图gkd", "来点色图", "色图gkd", "涩图来", "色图来"})
+setu = on_command("来点涩图", aliases={"涩图gkd", "来点色图",
+                                   "色图gkd", "涩图来", "色图来"}, priority=5)
 setu_type = 3  # 1为普通发图，2为构造转发，3为大涩图
 
 
@@ -58,8 +59,7 @@ async def setu_handle(bot: Bot, event: GroupMessageEvent):
                     "uin": f"{user}",
                     "content": msg
                 }
-            }
-            ]
+            }]
             try:
                 await bot.send_group_forward_msg(group_id=group, messages=node)
             except ActionFailed:
@@ -84,7 +84,7 @@ async def setu_handle(bot: Bot, event: GroupMessageEvent):
         await setu.finish(f"消息传输失败，通道似乎受到了管制")
 
 
-set_setu_type = on_command("setu-type", permission=SUPERUSER)
+set_setu_type = on_command("setu-type", permission=SUPERUSER, priority=5)
 
 
 @set_setu_type.handle()
@@ -93,22 +93,17 @@ async def handle(bot: Bot, event: Event, state: T_State):
     global setu_type
     typelist = {1: "普通图", 2: "构造转发", 3: "大涩图"}
     former_setu_type = setu_type
-    if arg == "1":
-        setu_type = 1
-    elif arg == "2":
-        setu_type = 2
-    elif arg == "3":
-        setu_type = 3
-    else:
+    if arg not in ["1", "2", "3"]:
         await set_setu_type.finish("请检查输入")
+    setu_type = int(arg)
     msg = f"原先的setu类型为{typelist[former_setu_type]}\n"
     msg += "现在的setu类型为" + typelist[int(arg)]
     await set_setu_type.finish(msg)
 
 
-bugouse = on_command("不够涩", aliases={"不够色"})
+bugouse = on_command("不够涩", aliases={"不够色"}, priority=5)
 
 
 @bugouse.handle()
 async def bugouse_handle(bot: Bot, event: MessageEvent):
-    await bugouse.finish(Message("那你来发"))
+    await bugouse.finish(Message("那你来发" + "❤" if (randint(1, 15) < 5) else ""))

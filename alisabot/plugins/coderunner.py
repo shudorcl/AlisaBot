@@ -38,7 +38,7 @@ SUPPORTED_LANGUAGES = {
 }
 api_token = global_config.glot_key
 
-coderunner = on_command("code_runner", aliases={"run", "运行代码", "运行", "执行代码"})
+coderunner = on_command("code_runner", aliases={"run", "运行代码", "运行", "执行代码"}, priority=5)
 
 
 @coderunner.handle()

@@ -5,18 +5,18 @@ import os
 import re
 from io import BytesIO
 from pathlib import Path
-from random import randint
+from random import randint, choice
 
 from PIL import Image
-from nonebot import get_driver, on_regex
+from nonebot import get_driver, on_regex, on_message
 from nonebot import on_command
 from nonebot.adapters import Bot
 from nonebot.adapters.cqhttp import Message, MessageEvent, ActionFailed
 
-from alisabot.utils.request import post_bytes, get_bytes
+from alisabot.utils.request import post_bytes, get_bytes, get_content
 from alisabot.utils.translate import to_simple_string
 from .config import Config
-from .data_source import generate_gif
+from .data_source import generate_gif, dragon_reco
 
 global_config = get_driver().config
 config = Config(**global_config.dict())
@@ -118,3 +118,20 @@ async def creep(bot: Bot, event: MessageEvent):
         await bot.send(event, Message(msg))
     except ActionFailed:
         await bot.send(event, "rua不出来，被管住叻...")
+
+
+dragon_recongnize = on_message(priority=5)
+
+
+@dragon_recongnize.handle()
+async def handler(bot: Bot, event: MessageEvent):
+    msg = str(event.message)
+    dragon_url = re.findall(r"url=(.*?)]", msg)
+    if len(dragon_url):
+        dragon_url = dragon_url[0]
+    else:
+        return
+    dragon = await get_content(dragon_url)
+    if dragon_reco(dragon):
+        if randint(1, 15) < 6:
+            await dragon_recongnize.finish(choice(["我看到龙了", "卧槽，龙！", "我发现了龙！"]))

@@ -1,9 +1,10 @@
 import json
 
 from nonebot import get_driver
+from nonebot.adapters import Bot, Event
 from nonebot.adapters.cqhttp.utils import escape as message_escape
 from nonebot.plugin import on_command
-from nonebot.typing import Bot, Event
+from nonebot.typing import T_State
 
 from alisabot.utils.request import post_bytes
 
@@ -42,7 +43,7 @@ coderunner = on_command("code_runner", aliases={"run", "运行代码", "运行",
 
 
 @coderunner.handle()
-async def _(bot: Bot, event: Event, state: dict):
+async def _(bot: Bot, event: Event, state: T_State):
     args = str(event.get_message()).strip()
 
     if args:
@@ -50,7 +51,7 @@ async def _(bot: Bot, event: Event, state: dict):
         language, *remains = state['args'].split("\n", maxsplit=1)
         language = language.strip()
         if language not in SUPPORTED_LANGUAGES:
-            await bot.finish("暂时不支持运行你输入的编程语言")
+            await coderunner.finish("暂时不支持运行你输入的编程语言")
         state["language"] = language
 
         if remains:
@@ -68,7 +69,7 @@ async def _(bot: Bot, event: Event, state: dict) -> None:
     code = state['code']
     language = state["language"]
     if language not in SUPPORTED_LANGUAGES:
-        await bot.finish("暂时不支持运行你输入的编程语言")
+        await coderunner.finish("暂时不支持运行你输入的编程语言")
     await bot.send(event, "正在运行，请稍等……")
     url = RUN_API_URL_FORMAT.format(language)
     data = {

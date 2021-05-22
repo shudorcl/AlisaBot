@@ -1,6 +1,10 @@
+import io
 from os import path
 from pathlib import Path
 
+import cv2
+import numpy as np
+import requests
 from PIL import Image, ImageDraw
 
 temp_dir = Path('.') / 'alisabot' / 'data' / 'temp'
@@ -41,8 +45,33 @@ def generate_gif(frame_dir: str, avatar: Image.Image, user_id, output_dir=temp_d
     return out_path
 
 
+# xml_path = Path('.') / 'alisabot' / 'plugins' / 'fun' / 'data' / 'haarcascade_dragon.xml'
+# xml_path = path.abspath(xml_path)
+# 非常诡异的事情就在这里，用pathlib生成的绝对路径不管用，得你像下面这样自己输一下绝对路径
+xml_path = "C:/Code/Python/BotDev/AlisaBot/alisabot/plugins/fun/data/haarcascade_dragon.xml"
+
+
+def dragon_reco(raw_img) -> bool:
+    if not xml_path:
+        return False
+    dragon_cascade = cv2.CascadeClassifier(xml_path)
+    img_stream = io.BytesIO(raw_img)
+    img = cv2.imdecode(np.frombuffer(img_stream.read(), np.uint8), 1)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    dragons = dragon_cascade.detectMultiScale(gray, 1.01, 8)
+    if not len(dragons):
+        return False
+    else:
+        return True
+
+
 if __name__ == '__main__':
-    data_dir = "./data"
-    test_path = "./data/test.jpg"
-    test_avatar = Image.open(test_path)
-    generate_gif(data_dir, test_avatar, 114514, "./")
+    # data_dir = "./data"
+    # test_path = "./data/test.jpg"
+    # test_avatar = Image.open(test_path)
+    # generate_gif(data_dir, test_avatar, 114514, "./")
+    url = "https://wx1.sinaimg.cn/mw690/007cxfnugy1gq6qtbqecvj305u05eweh.jpg"
+    if dragon_reco(requests.get(url).content):
+        print("识别成功")
+    else:
+        print("识别失败")

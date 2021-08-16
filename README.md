@@ -33,6 +33,8 @@
 
 - 根据违禁词列表撤回消息（需要管理员权限）
 
+- 进行coc跑团
+
 # 将来会做什么？
 
 把我缝过的东西缝回来！
@@ -55,3 +57,6 @@
 [Mrs4s](https://github.com/Mrs4s): [go-cqhttp](https://github.com/Mrs4s/go-cqhttp)
 
 [NoneBot](https://github.com/nonebot): [NoneBot2](https://github.com/nonebot/nonebot2)
+
+[Abrahum](https://github.com/abrahum): [NoneBot Plugin COC-Dicer](https://github.com/abrahum/nonebot_plugin_cocdicer)
+骰娘就是从这里魔改哒！

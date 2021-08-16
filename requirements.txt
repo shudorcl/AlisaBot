@@ -53,3 +53,5 @@ yarl==1.6.3
 
 opencv-python~=4.5.2.52
 numpy~=1.20.3
+varname~=0.6.4
+ujson~=4.0.2
